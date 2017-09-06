@@ -1,0 +1,4 @@
+require('babel-register');
+require('../test/test-01-simple.js');
+require('../test/test-02-changed-handler.js');
+require('../test/test-03-cascading-reducers.js');

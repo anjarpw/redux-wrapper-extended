@@ -1,0 +1,21 @@
+{
+  "name": "redux-wrapper-extended",
+  "version": "0.1.0",
+  "description": "Short Cut Reducer definition.",
+  "main": "/src/redux-wrapper-extended.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "redux-wrapper-extended"
+  },
+  "keywords": [
+    "Redux",
+    "Reducer",
+    "Wrapper",
+    "React"
+  ],
+  "author": "Anjar Wicaksono",
+  "license": "MIT"
+}

@@ -3,9 +3,7 @@
   "version": "0.1.0",
   "description": "Short Cut Reducer definition.",
   "main": "/src/redux-wrapper-extended.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "redux-wrapper-extended"
@@ -17,5 +15,14 @@
     "React"
   ],
   "author": "Anjar Wicaksono",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "redux": "^3.7.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0"
+  }
 }

@@ -21,12 +21,12 @@ var action = {
 Given you have this reducer
 
 ```sh
-const countReducer = (state,action)=>{
+const countReducer = (state=0,action) => {
     if(action.type === "INCREMENT"){
         return state + action.payload;
     }
-    if(action.type === "INCREMENT"){
-        return state + action.payload;
+    if(action.type === "DECREMENT"){
+        return state - action.payload;
     }
     if(action.type === "SETVAL"){
         return action.payload;
@@ -39,10 +39,10 @@ By using **reducer-wrapper-extended**, you could make something like this:
 ```sh
 const countReducerWrapper =
 new ReducerWrapper(0)
-    .addHandler("INC",(s,pl)=>{
+    .addHandler("INCREMENT",(s,pl) => {
         return s + pl;
     })
-    .addHandler("DEC",(s,pl)=>{
+    .addHandler("DECREMENT",(s,pl) => {
         return s - pl;
     })
     .addPropChangedHandler("SETVAL");
@@ -81,16 +81,16 @@ store.subscribe(() => {
 const detailReducerWrapper =
 new ReducerWrapper()
 
-    .addPropChangedHandler("SET_NAME",(x)=>x.name)
+    .addPropChangedHandler("SET_NAME",(x) => x.name)
 
-    .addPropChangedHandler("SET_AGE",(x)=>x.age, (state,payload) => {
+    .addPropChangedHandler("SET_AGE",(x) => x.age, (state,payload) => {
         if(payload<18){
           return 18;
         }
         return payload;
     })
 
-    .addPropChangedHandler("SET_PHONE",(x)=>x.contacts.phone);
+    .addPropChangedHandler("SET_PHONE",(x) => x.contacts.phone);
 
 ```
 
@@ -127,7 +127,7 @@ Take note that the context of _nameReducerWrapper's state_ is -> detail -> name
 
 ```sh
 const nameReducerWrapper = new ReducerWrapper("Jon Doe") // default value
-    .addHandler("CHANGE_NAME",(state,payload)=>{
+    .addHandler("CHANGE_NAME",(state,payload) => {
         if(!hasFunnyCharacter()){
             return payload;
         }

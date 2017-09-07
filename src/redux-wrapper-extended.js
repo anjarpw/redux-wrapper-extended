@@ -1,25 +1,12 @@
 import {createStore, combineReducers} from 'redux';
 
-
-const doCombinedReducers = (reducers) =>{
-  var items = {};
-  for(var prop in reducers){
-    var reducer = reducers[prop];
-    if(typeof reducer === 'function'){
-      items[prop] = reducer;
-    }else if(typeof reducer == 'object'){
-      items[prop] = doCombinedReducers(reducer);
-    }
-  }
-  return combineReducers(items);
-}
-
-
 class StoreWrapper{
-  constructor(combinedReducerProp, initialState){
+  constructor(reducers, initialState){
+    if(typeof reducers === 'object'){
+      reducers = ReducerWrapper.combine(reducers);
+    }
 
-
-    this.combinedReducers = doCombinedReducers(combinedReducerProp);
+    this.combinedReducers = reducers;
     this.store = createStore(this.combinedReducers, initialState);
   }
   dispatch(type, payload){
@@ -92,7 +79,6 @@ class ReducerWrapper {
           propInfo.beforeLastFunc(newState)[propInfo.lastProp] = payloadFunc(state, action.payload);
           return newState;
         }else{
-
           return payloadFunc(state, action.payload);
         }
       }
@@ -107,7 +93,7 @@ class ReducerWrapper {
 
     var combinedReducerDefault = null;
     if(otherReducer){
-      combinedReducerDefault = doCombinedReducers(otherReducer);
+      combinedReducerDefault = ReducerWrapper.combine(otherReducer);
     }
     return (state=this.defaultState, action)=>{
       var initialState = state;
@@ -119,12 +105,25 @@ class ReducerWrapper {
           break;
         }
       }
-      if(newState == state && state != null && otherReducer){
+      if(state != null && otherReducer){
         return combinedReducerDefault(state, action);
       }
       return newState;
     }
   }
+  static combine(reducers){
+    var items = {};
+    for(var prop in reducers){
+      var reducer = reducers[prop];
+      if(typeof reducer === 'function'){
+        items[prop] = reducer;
+      }else if(typeof reducer == 'object'){
+        items[prop] = ReducerWrapper.combine(reducer);
+      }
+    }
+    return combineReducers(items);
+  }
+
   static uselessReducer(state, action){
     if(state==undefined){
       return null;

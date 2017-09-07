@@ -120,10 +120,10 @@ const storeWrapper = new StoreWrapper(
 >Please take note that the idea the state should be as flattened as possible.
 >But if you are still willing to have some level of hierarchies, here are the samples
 
-if **detailReducerWrapper** does not change the state of an action,
-then now **nameReducerWrapper** will try to be invoked
+run **detailReducerWrapper's reducer** is invoked,
+then now **nameReducerWrapper's reducer** is invoked
 
-Take note that the context of _nameReducerWrapper's state_ is -> detail -> name
+Take note that the context of the state_ is -> detail -> name
 
 ```sh
 const nameReducerWrapper = new ReducerWrapper("Jon Doe") // default value
@@ -206,6 +206,38 @@ this is a function pointer. the function itself checks
 ReducerWrapper.uselessReducer
 ```
 
+#### Combine Reducer
+
+You can combine reducer like this
+
+```sh
+var reducers = ReducerWrapper.combine({
+    detail:parentReducerWrapper.getReducer({
+
+        // this is invoked after parentReducerWrapper's reducer
+        name:childReducerWrapper.getReducer(),
+
+        // this is to maintain that the state is not removed by parent reducer
+        age:ReducerWrapper.uselessReducer,
+    }),
+  });
+```
+
+
+```sh
+var reducers = ReducerWrapper.combine({
+    detail:detailReducerWrapper.getReducer({
+        name:nameReducerWrapper.getReducer(),
+        age:ReducerWrapper.uselessReducer,
+        contacts:{
+            email:emailReducerWrapper.getReducer(),
+            phone:ReducerWrapper.uselessReducer,
+        }
+    }),
+  });
+```
+
+
 #### StoreWrapper
 | Function | Purpose  |
 | ------------- |:-------------:|
@@ -220,3 +252,4 @@ ReducerWrapper.uselessReducer
 | **addPropChangedHandler(type, navigationProperty, handler)** | similar to **addHandler(type, handler)** but it has navigation property and the state is the context of that navigation property |
 | **getReducer()** | compose the reducer |
 | **static uselessReducer** | see sample above |
+| **static combine(object)** | combine reducer |

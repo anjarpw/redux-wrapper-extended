@@ -133,8 +133,8 @@ class ReducerWrapper {
 }
 
 
-const dispatchAction = (dispatchFunc, action, payload) => {
-  return dispatchFunc({action:action, payload:payload});
+const dispatchAction = (dispatchFunc, type, payload) => {
+  return dispatchFunc({type:type, payload:payload});
 }
 
 export {

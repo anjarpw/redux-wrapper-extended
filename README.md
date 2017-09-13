@@ -2,6 +2,13 @@
 
 This package gives you shortcut for redux.
 
+#### Quick-Start
+```sh
+import {StoreWrapper,ReducerWrapper,dispatchAction} from 'redux-wrapper-extended';
+```
+
+
+
 #### Assumption
 
   - Action has property **_type_**

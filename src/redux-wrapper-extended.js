@@ -25,6 +25,16 @@ class ReducerWrapper {
     this.funcs = {};
     return this;
   }
+
+  withHandlersFromOtherReducerWrappers(reducerWrappers){
+    reducerWrappers.forEach(reducer=>{
+      Object.keys(reducer.funcs).forEach(key=>{
+        this.funcs[key] = reducer.funcs[key];          
+      });
+    });
+    return this;
+  }
+
   addHandler(type, handler){
     var func = (state,action) => {
       if(action.type === type){

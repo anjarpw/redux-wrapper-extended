@@ -2,3 +2,4 @@ require('babel-register');
 require('../sample/sample-01-simple.js');
 require('../sample/sample-02-changed-handler.js');
 require('../sample/sample-03-cascading-reducers.js');
+require('../sample/sample-04-mixin-reducers.js');

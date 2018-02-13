@@ -142,6 +142,21 @@ class ReducerWrapper {
   }
 }
 
+class ActionCollections{
+  constructor(name, actions){
+    this.name = name;
+    this.actions = {};
+    Object.keys(actions).forEach(key=>{
+      let callableAction = actions[key];
+      this.actions[key] = function() {
+        return {
+          type: name + "."+key,
+          payload: callableAction.apply(null,arguments)
+        }
+      }
+    });
+  }
+} 
 
 const dispatchAction = (dispatchFunc, type, payload) => {
   return dispatchFunc({type:type, payload:payload});
@@ -149,6 +164,7 @@ const dispatchAction = (dispatchFunc, type, payload) => {
 
 export {
   StoreWrapper as StoreWrapper,
+  ActionCollections as ActionCollections, 
   ReducerWrapper as ReducerWrapper,
   dispatchAction as dispatchAction
 }

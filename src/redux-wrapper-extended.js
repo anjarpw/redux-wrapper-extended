@@ -145,16 +145,27 @@ class ReducerWrapper {
 class ActionCollections{
   constructor(name, actions){
     this.name = name;
-    this.actions = {};
+    this.generator = {};
     Object.keys(actions).forEach(key=>{
       let callableAction = actions[key];
-      this.actions[key] = function() {
+      this.generator[key] = function() {
         return {
           type: name + "."+key,
           payload: callableAction.apply(null,arguments)
         }
       }
     });
+  }
+  setExecutor(dispatch){
+    var executor = {};
+    Object.keys(this.generator).forEach(key=>{
+      let callableAction = this.generator[key];
+      executor[key] = function() {
+        let generatedAction = callableAction.apply(null,arguments);
+        dispatch(generatedAction);
+      }
+    });
+    return executor;
   }
 } 
 

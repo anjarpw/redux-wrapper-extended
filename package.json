@@ -1,6 +1,6 @@
 {
   "name": "redux-wrapper-extended",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "Short Cut Reducer definition.",
   "main": "/src/redux-wrapper-extended.js",
   "scripts": {

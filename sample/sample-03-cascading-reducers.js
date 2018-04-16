@@ -1,4 +1,4 @@
-import {ReducerWrapper, StoreWrapper} from '../src/redux-wrapper-extended.js';
+import {ReducerWrapper, StoreWrapper, combineReducerWrapper, uselessReducer} from '../src/redux-wrapper-extended.js';
 
 
 const detailReducerWrapper = new ReducerWrapper()
@@ -14,7 +14,7 @@ const emailReducerWrapper = new ReducerWrapper().addPropChangedHandler("SET_EMAI
 const nameReducerWrapper = new ReducerWrapper().addPropChangedHandler("SET_NAME_ALSO");
 
 
-var reducers = ReducerWrapper.combine({
+var reducers = combineReducerWrapper({
     // a reducer could have its "child" reducers, they are in action if the state is not changed by the 'parent' reducer
     detail:detailReducerWrapper.getReducer({
       // override
@@ -26,7 +26,7 @@ var reducers = ReducerWrapper.combine({
         email:emailReducerWrapper.getReducer(),
 
         // maintain existence of 'phone'
-        phone:ReducerWrapper.uselessReducer,
+        phone:uselessReducer,
       }
     }),
   });

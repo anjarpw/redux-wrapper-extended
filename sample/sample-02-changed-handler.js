@@ -37,7 +37,7 @@ store.subscribe(() => {
 
 console.log("SET_NAME TO John");
 store.dispatch({type: "SET_NAME", payload: "John"});
-console.log("SET_AGE TO 16");
+console.log("SET_AGE TO 16, but set at 18");
 store.dispatch({type: "SET_AGE", payload: 16});
 console.log("SET_AGE TO 23");
 store.dispatch({type: "SET_AGE", payload: 23});

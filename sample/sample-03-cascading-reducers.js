@@ -20,8 +20,6 @@ var reducers = ReducerWrapper.combine({
       // override
       name:nameReducerWrapper.getReducer(),
 
-      // maintain existence of 'age'
-      age:ReducerWrapper.uselessReducer,
       contacts:{
 
         // override contact in, state is relative to its context
@@ -52,14 +50,15 @@ store.subscribe(() => {
   console.log("Store changed", store.getState());
 });
 
+console.log("CASCADING REDUCER");
 
 console.log("SET_NAME TO John");
 store.dispatch({type: "SET_NAME", payload: "John"});
-console.log("SET_AGE TO 16");
+console.log("SET_AGE TO 16, but capped at 18");
 store.dispatch({type: "SET_AGE", payload: 16});
 console.log("SET_AGE TO 23");
 store.dispatch({type: "SET_AGE", payload: 23});
 console.log("SET_NAME_ALSO TO Paul");
 store.dispatch({type: "SET_NAME_ALSO", payload: "Paul"});
-console.log("SET_EMAIL TO john2000@gmail.com");
-store.dispatch({type: "SET_EMAIL", payload: "SET_EMAILjohn2000@gmail.com"});
+console.log("SET_EMAIL TO john2001@gmail.com");
+store.dispatch({type: "SET_EMAIL", payload: "john2001@gmail.com"});

@@ -29,7 +29,7 @@ class ReducerWrapper {
   withHandlersFromOtherReducerWrappers(reducerWrappers){
     reducerWrappers.forEach(reducer=>{
       Object.keys(reducer.funcs).forEach(key=>{
-        this.funcs[key] = reducer.funcs[key];          
+        this.funcs[key] = reducer.funcs[key];
       });
     });
     return this;
@@ -115,8 +115,10 @@ class ReducerWrapper {
           break;
         }
       }
-      if(state != null && otherReducer){
-        return combinedReducerDefault(state, action);
+      if(otherReducer){
+        newState = newState || {};
+        var deeperNewerState = combinedReducerDefault(newState, action);
+        return Object.assign({}, newState, deeperNewerState);
       }
       return newState;
     }
@@ -167,7 +169,7 @@ class ActionCollections{
     });
     return executor;
   }
-} 
+}
 
 const dispatchAction = (dispatchFunc, type, payload) => {
   return dispatchFunc({type:type, payload:payload});
@@ -175,7 +177,7 @@ const dispatchAction = (dispatchFunc, type, payload) => {
 
 export {
   StoreWrapper as StoreWrapper,
-  ActionCollections as ActionCollections, 
+  ActionCollections as ActionCollections,
   ReducerWrapper as ReducerWrapper,
   dispatchAction as dispatchAction
 }

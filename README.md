@@ -3,8 +3,8 @@
 This package gives you shortcut for redux.
 
 #### Quick-Start
-```sh
-import {StoreWrapper,ReducerWrapper,dispatchAction} from 'redux-wrapper-extended';
+```js
+import {StoreWrapper,ReducerWrapper,dispatchAction, combineReducerWrapper, uselessReducer} from 'redux-wrapper-extended';
 ```
 
 
@@ -16,7 +16,7 @@ import {StoreWrapper,ReducerWrapper,dispatchAction} from 'redux-wrapper-extended
   - other than those two will be ignored
 
 you have action object that looks like:
-```sh
+```js
 var action = {
     type:"Something",
     payload //either object or value
@@ -27,7 +27,7 @@ var action = {
 
 Given you have this reducer
 
-```sh
+```js
 const countReducer = (state=0,action) => {
     if(action.type === "INCREMENT"){
         return state + action.payload;
@@ -43,7 +43,7 @@ const countReducer = (state=0,action) => {
 ```
 
 By using **reducer-wrapper-extended**, you could make something like this:
-```sh
+```js
 const countReducerWrapper =
 new ReducerWrapper(0)
     .addHandler("INCREMENT",(s,pl) => {
@@ -56,11 +56,11 @@ new ReducerWrapper(0)
 ```
 
 and you can use it like this:
-```sh
+```js
 const countReducer = countReducerWrapper.getReducer();
 ```
 
-```sh
+```js
 const storeWrapper = new StoreWrapper(
     { //combining reducers
         count: countReducerWrapper.getReducer(),
@@ -75,7 +75,7 @@ const storeWrapper = new StoreWrapper(
 ```
 
 Don't worry, it's just a wrapper. you can get the actual redux store
-```sh
+```js
 var store = storeWrapper.getStore();
 
 store.subscribe(() => {
@@ -84,7 +84,7 @@ store.subscribe(() => {
 ```
 
 #### Getting Fancier
-```sh
+```js
 const detailReducerWrapper =
 new ReducerWrapper()
 
@@ -103,7 +103,7 @@ new ReducerWrapper()
 
 then you create a store
 
-```sh
+```js
 const storeWrapper = new StoreWrapper(
     {
         count: countReducerWrapper.getReducer(),
@@ -132,7 +132,7 @@ then now **nameReducerWrapper's reducer** is invoked
 
 Take note that the context of the state_ is -> detail -> name
 
-```sh
+```js
 const nameReducerWrapper = new ReducerWrapper("Jon Doe") // default value
     .addHandler("CHANGE_NAME",(state,payload) => {
         if(!hasFunnyCharacter()){
@@ -142,7 +142,7 @@ const nameReducerWrapper = new ReducerWrapper("Jon Doe") // default value
     })
 ```
 
-```sh
+```js
 const storeWrapper = new StoreWrapper(
     {
         detail:detailReducerWrapper.getReducer({
@@ -150,7 +150,7 @@ const storeWrapper = new StoreWrapper(
             name:nameReducerWrapper.getReducer(),
 
             // maintain existence of 'age'
-            age:ReducerWrapper.uselessReducer
+            age: uselessReducer
         }),
     },
     {
@@ -164,14 +164,14 @@ const storeWrapper = new StoreWrapper(
 
 You can also do something like this
 
-```sh
+```js
 const storeWrapper = new StoreWrapper(
     {
         detail:{
             name:nameReducerWrapper.getReducer(),
 
             // maintain existence of 'age'
-            age:ReducerWrapper.uselessReducer,
+            age: uselessReducer,
 
             contacts:{
 
@@ -196,12 +196,12 @@ const storeWrapper = new StoreWrapper(
 ```
 
 #### Others
-```sh
+```js
 var store = storeWrapper.getStore();
 store.dispatch({type: "SET_VALUE", payload: 10});
 ```
 equal with
-```sh
+```js
 storeWrapper.dispatch("SET_VALUE",10);
 ```
 
@@ -209,7 +209,7 @@ this is a function pointer. the function itself checks
   - if state is undefined, then return null
   - else, return original state
 
-```sh
+```js
 ReducerWrapper.uselessReducer
 ```
 
@@ -217,25 +217,24 @@ ReducerWrapper.uselessReducer
 
 You can combine reducer like this
 
-```sh
-var reducers = ReducerWrapper.combine({
+```js
+var reducers = combineReducerWrapper({
     detail:parentReducerWrapper.getReducer({
 
         // this is invoked after parentReducerWrapper's reducer
         name:childReducerWrapper.getReducer(),
 
         // this is to maintain that the state is not removed by parent reducer
-        age:ReducerWrapper.uselessReducer,
+        age: uselessReducer,
     }),
   });
 ```
 
 
-```sh
-var reducers = ReducerWrapper.combine({
+```js
+var reducers = combineReducerWrapper({
     detail:detailReducerWrapper.getReducer({
         name:nameReducerWrapper.getReducer(),
-        age:ReducerWrapper.uselessReducer,
         contacts:{
             email:emailReducerWrapper.getReducer(),
             phone:ReducerWrapper.uselessReducer,

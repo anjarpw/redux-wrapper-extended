@@ -1,4 +1,4 @@
-import {ReducerWrapper, StoreWrapper} from '../src/redux-wrapper-extended.js';
+import {ReducerWrapper, StoreWrapper, combineReducerWrapper} from '../src/redux-wrapper-extended.js';
 
 
 const countReducer1Wrapper = new ReducerWrapper(2) // this initial value is simply ignored
@@ -16,10 +16,10 @@ const finalCountReducerWrapper = new ReducerWrapper(0)
     countReducer1Wrapper,
     countReducer2Wrapper
   ]);
-  
 
 
-var reducers = ReducerWrapper.combine({
+
+var reducers = combineReducerWrapper({
     count: finalCountReducerWrapper.getReducer(),
   });
 

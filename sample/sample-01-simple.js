@@ -1,4 +1,4 @@
-import {ReducerWrapper, StoreWrapper} from '../src/redux-wrapper-extended.js';
+import { ReducerWrapper, StoreWrapper, combineReducerWrapper } from '../src/redux-wrapper-extended.js';
 
 
 const countReducerWrapper = new ReducerWrapper(0)
@@ -10,7 +10,7 @@ const countReducerWrapper = new ReducerWrapper(0)
   })
   .addPropChangedHandler("SET_VALUE");
 
-var reducers = ReducerWrapper.combine({
+var reducers = combineReducerWrapper({
     count: countReducerWrapper.getReducer(),
   });
 
@@ -19,10 +19,7 @@ var state = {
 };
 
 
-const storeWrapper = new StoreWrapper(reducers,state);
-
-
-
+const storeWrapper = StoreWrapper(reducers,state);
 
 var store = storeWrapper.getStore();
 store.subscribe(() => {

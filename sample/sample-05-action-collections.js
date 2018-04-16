@@ -1,4 +1,4 @@
-import {ReducerWrapper, StoreWrapper, ActionCollections} from '../src/redux-wrapper-extended.js';
+import {ReducerWrapper, StoreWrapper, ActionCollections, combineReducerWrapper} from '../src/redux-wrapper-extended.js';
 
 
 const countReducerWrapper = new ReducerWrapper(0)
@@ -10,7 +10,7 @@ const countReducerWrapper = new ReducerWrapper(0)
   })
   .addPropChangedHandler("calc.SET_VALUE");
 
-var reducers = ReducerWrapper.combine({
+var reducers = combineReducerWrapper({
     count: countReducerWrapper.getReducer(),
   });
 
@@ -63,4 +63,3 @@ executor.INCREMENT(3);
 // subtract 2 from current state
 console.log("DECREMENT 2");
 executor.DECREMENT(2);
-

@@ -182,6 +182,7 @@ let dispatchAction = (dispatchFunc, type, payload) => {
 }
 
 
+
 export {
   uselessReducer as uselessReducer,
   combineReducerWrapper as combineReducerWrapper,

@@ -16,7 +16,7 @@ var reducers = combineReducerWrapper({
 
 var state = {
   count:0
-};
+}
 
 
 const storeWrapper = new StoreWrapper(reducers,state);

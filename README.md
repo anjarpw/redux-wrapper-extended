@@ -195,6 +195,8 @@ const storeWrapper = new StoreWrapper(
     });
 ```
 
+
+
 #### Others
 ```js
 var store = storeWrapper.getStore();
@@ -211,6 +213,19 @@ this is a function pointer. the function itself checks
 
 ```js
 ReducerWrapper.uselessReducer
+```
+
+```js
+dispatch({
+    type: 'ActionName',
+    payload: {
+        some:'objects'
+    }
+})
+// can be replaced with
+dispatchAction(dispatch, 'ActionName', {
+    some:'objects'    
+})
 ```
 
 #### Combine Reducer

@@ -1,6 +1,6 @@
 {
   "name": "redux-wrapper-extended",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Short Cut Reducer definition.",
   "main": "lib/redux-wrapper-extended.js",
   "scripts": {
@@ -14,7 +14,7 @@
   "keywords": [
     "Redux",
     "Reducer",
-    "Wrapper",
+    "CRUD",
     "React"
   ],
   "author": "Anjar Wicaksono",

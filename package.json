@@ -1,8 +1,8 @@
 {
   "name": "redux-wrapper-extended",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Short Cut Reducer definition.",
-  "main": "/lib/redux-wrapper-extended.js",
+  "main": "lib/redux-wrapper-extended.js",
   "scripts": {
     "test": "node sample/index.js",
     "build": "cross-env BABEL_ENV=commonjs babel src --out-dir lib"

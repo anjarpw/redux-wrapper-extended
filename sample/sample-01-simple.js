@@ -19,7 +19,7 @@ var state = {
 };
 
 
-const storeWrapper = StoreWrapper(reducers,state);
+const storeWrapper = new StoreWrapper(reducers,state);
 
 var store = storeWrapper.getStore();
 store.subscribe(() => {

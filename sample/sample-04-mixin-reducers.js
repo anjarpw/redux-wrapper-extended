@@ -23,12 +23,14 @@ var reducers = combineReducerWrapper({
     count: finalCountReducerWrapper.getReducer(),
   });
 
+
+
 var state = {
   count:0
 };
 
 
-const storeWrapper = new StoreWrapper(reducers,state);
+var storeWrapper = new StoreWrapper(reducers,state);
 
 
 
@@ -47,3 +49,32 @@ storeWrapper.dispatch("INCREMENT",3);
 // subtract 2 from current state
 console.log("DECREMENT 2");
 storeWrapper.dispatch("DECREMENT",2);
+
+var anotherReducerWrapper = ReducerWrapper.importFrom(reducers, null)
+
+anotherReducerWrapper.addHandler("MULTIPLIED_BY",(state,payload)=>{
+  return {
+    count: state.count * payload
+  }
+})
+
+
+
+storeWrapper = new StoreWrapper(anotherReducerWrapper.getReducer(),{
+  count: 300
+});
+store = storeWrapper.getStore();
+store.subscribe(() => {
+  console.log("Store changed", store.getState());
+});
+
+// add 3 to current state
+console.log("INCREMENT 3");
+storeWrapper.dispatch("INCREMENT",3);
+// subtract 2 from current state
+console.log("DECREMENT 2");
+storeWrapper.dispatch("DECREMENT",2);
+
+console.log("MULTIPLIED BY 4");
+storeWrapper.dispatch("MULTIPLIED_BY",4);
+

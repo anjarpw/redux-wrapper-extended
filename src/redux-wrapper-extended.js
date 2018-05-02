@@ -119,11 +119,19 @@ class ReducerWrapper {
     return this;
   }
 
-  getReducer (otherReducer){
+
+
+  static importFrom (anotherReducer, initialState) {
+    var reducerWrappers = new ReducerWrapper(initialState)
+    reducerWrappers.funcs['_importedFrom'] = anotherReducer
+    return reducerWrappers
+  }
+
+  getReducer (otherReducers){
 
     var combinedReducerDefault = null;
-    if(otherReducer){
-      combinedReducerDefault = combineReducerWrapper(otherReducer);
+    if(otherReducers){
+      combinedReducerDefault = combineReducerWrapper(otherReducers);
     }
     var _this = this;
     return (state, action) => {
@@ -137,7 +145,7 @@ class ReducerWrapper {
           break;
         }
       }
-      if(otherReducer){
+      if(otherReducers){
         newState = newState || {};
         var deeperNewerState = combinedReducerDefault(newState, action);
         return Object.assign({}, newState, deeperNewerState);

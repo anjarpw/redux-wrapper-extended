@@ -1,9 +1,10 @@
 {
   "name": "redux-wrapper-extended",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Short Cut Reducer definition.",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "tsc; run /dist/sample/index.js"

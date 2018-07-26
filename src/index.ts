@@ -238,7 +238,7 @@ class ActionCollections {
   }
 }
 
-let dispatchAction = <S>(dispatchFunc: Dispatch<AnyAction>, type: string, payload: any) : AnyAction => {
+let dispatchAction = <S>(dispatchFunc: Dispatch<AnyAction>, type: string, payload?: any) : AnyAction => {
   let anyAction : AnyAction = {
     type,
     payload

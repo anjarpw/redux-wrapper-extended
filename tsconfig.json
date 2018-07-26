@@ -9,8 +9,8 @@
     "esModuleInterop": true
   },
   "files": [
-    "src/index.ts",
-    "sample/index.ts"
+//    "sample/index.ts",
+    "src/index.ts"
   ],
   "exclude": [
     "node_modules",

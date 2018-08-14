@@ -7,7 +7,7 @@
   "typings": "dist/src/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "tsc; run /dist/sample/index.js"
+    "test": "tsc; node dist/sample/index.js"
   },
   "repository": {
     "type": "git",

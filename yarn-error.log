@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/bin/node /usr/bin/yarn build
+  /usr/bin/node /usr/bin/yarn test
 
 PATH: 
   /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/anjar/work/bin
@@ -16,13 +16,14 @@ Platform:
 npm manifest: 
   {
     "name": "redux-wrapper-extended",
-    "version": "1.0.4",
+    "version": "1.2.0",
     "description": "Short Cut Reducer definition.",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "main": "dist/src/index.js",
+    "types": "dist/src/index.d.ts",
+    "typings": "dist/src/index.d.ts",
     "scripts": {
       "build": "tsc",
-      "test": "node sample/index.js"
+      "test": "tsc; node /dist/sample/index.js"
     },
     "repository": {
       "type": "git",
@@ -88,9 +89,9 @@ Lockfile:
 
 Trace: 
   Error: Command failed.
-  Exit code: 2
+  Exit code: 1
   Command: sh
-  Arguments: -c tsc
+  Arguments: -c tsc; node /dist/sample/index.js
   Directory: /home/anjar/projects/redux-wrapper-extended
   Output:
   

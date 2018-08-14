@@ -9,7 +9,7 @@
     "esModuleInterop": true
   },
   "files": [
-//    "sample/index.ts",
+    "sample/index.ts",
     "src/index.ts"
   ],
   "exclude": [

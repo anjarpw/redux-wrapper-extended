@@ -1,4 +1,4 @@
-import {createStore, combineReducers, Reducer, AnyAction, Store, ReducersMapObject, Dispatch} from 'redux';
+import {createStore, combineReducers, Reducer, AnyAction, Store, ReducersMapObject, StoreEnhancer, Dispatch} from 'redux';
 
 
 export interface ExtendedReducersMapObject {
@@ -37,7 +37,7 @@ class StoreWrapper<S>{
   store: Store<S>
   combinedReducers: Reducer<S>
 
-  constructor(reducers : ExtendedReducersMapObject | Reducer<S>, initialState: S){
+  constructor(reducers : ExtendedReducersMapObject | Reducer<S>, initialState: S | null, enhancer?: StoreEnhancer<S>){
     let reducerAsExtendedMapObject = reducers as ExtendedReducersMapObject
     let reducerAsReducer = reducers as Reducer<S>
     if(typeof reducers === 'object'){      
@@ -45,7 +45,11 @@ class StoreWrapper<S>{
     }else{
       this.combinedReducers = reducerAsReducer
     }
-    this.store = createStore(this.combinedReducers, initialState)  
+    if(initialState){
+      this.store = createStore(this.combinedReducers, initialState, enhancer)  
+    }else {
+      this.store = createStore(this.combinedReducers, enhancer)  
+    }
   }
 
   dispatch(type: string, payload: any) {
@@ -176,7 +180,6 @@ class ReducerWrapper<S> {
     var t = this;
     return (state : S, action: AnyAction) => {
       state = state || this.defaultState;
-      var initialState = state;
       var newState = state;
       for(var funcType in t.funcs){
         var func = t.funcs[funcType];
